@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>kart</title>
+    <style>
+        body{
+            background-image: url("pista.png");
+            background-repeat: no-repeat;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+        }
+        
+    </style>
+
+    <script lang = "JavaScript">
+
+        var l;
+        function carro()
+        {
+            document.write("<table>");
+            for(l=0; l < 9; ++l)
+                {
+                    document.write("<tr>");
+                        
+                    
+                        document.write( "<td><img width='90' height='90' src='kart4.png' id='"+ l + "'<br>></td>");
+                        
+                    
+                        document.write("<tr>");
+                }
+            document.write("</table>");
+        }
+
+        function kart(l)
+        {
+            var winObj = checkEventObj(_event_);
+            var intKeyCode = winObj.keyCode; 
+
+            if (intKeyCode = KEY_A )
+            {
+                
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+    <input type='button'  value='começar' onclick="carro()"><br>
+    
+
+</body>
+</html>
