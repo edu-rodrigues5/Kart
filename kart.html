@@ -1,56 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <title>kart</title>
-    <style>
-        body{
-            background-image: url("pista.png");
-            background-repeat: no-repeat;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            background-size: cover;
-            -o-background-size: cover;
-        }
-        
-    </style>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Kart</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script lang="Javascript">
+        var kart, m, aux, mt, nome, met;
+        nome = new Array(10)
+        kart = new Array(10);
+        m = new Array(10);
+        mt = new Array(3)
+        mt[0] = 0
+        pt = new Array(3)
+        pt[0] = 100000000;
 
-    <script lang = "JavaScript">
-
-        var l;
-        function carro()
+        for(i=0; i<10;i++)
         {
-            document.write("<table>");
-            for(l=0; l < 9; ++l)
-                {
-                    document.write("<tr>");
-                        
-                    
-                        document.write( "<td><img width='90' height='90' src='kart4.png' id='"+ l + "'<br>></td>");
-                        
-                    
-                        document.write("<tr>");
-                }
-            document.write("</table>");
+            nome[i] = window.prompt("Nome do "+ (i+1) +"° piloto")
+        }
+        for(i=0; i<10;i++)
+        {
+            kart[i] = window.prompt("Número do "+ (i+1) +"° piloto")
         }
 
-        function kart(l)
+        for(i=0; i<kart.length; ++i)
         {
-            var winObj = checkEventObj(_event_);
-            var intKeyCode = winObj.keyCode; 
+            kart[i] = new Array(3);
+        }
 
-            if (intKeyCode = KEY_A )
+        for(i=0; i<kart.length; ++i)
+        {
+            for(l=0; l<3; l++)
             {
-                
+            kart[i][l] = Math.floor(Math.random() * 200 + 120);
+
+            if(mt[0] < kart[i][l])
+            {
+                mt[0] = kart[i][l];
+                mt[1] = nome[i]
+                mt[2] = kart[i]
+            }
+            if(pt[0] > kart[i][l])
+            {
+                pt[0] = kart[i][l];
+                pt[1] = nome[i]
+                pt[2] = kart[i]
+            }
             }
         }
 
+        for(i=0; i<kart.length; ++i)
+        {
+            m[i] = kart[i][0] + kart[i][1] + kart[i][2] / 3;
+        }
+
+        for(i=0;i<9;i++)
+        {
+            for(l=9;l>0;l--)
+            {
+                if(m[i] > m[i +1])
+                {
+                    aux = m[i]
+                    m[i]= m[i+1]
+                    m[i+1] = aux
+
+                    aux = nome[i]
+                    nome[i]= nome[i+1]
+                    nome[i+1] = aux
+
+                    aux = kart[i]
+                    kart[i]= kart[i+1]
+                    kart[i+1] = aux
+                }
+            }
+        }
+
+
+        
+    
     </script>
 </head>
 <body>
-
-    <input type='button'  value='começar' onclick="carro()"><br>
-    
-
+    <script lang="Javascript">
+    document.write("<table>");
+        for(l=10; l > 0; --l)
+            {
+                
+                document.write("<tr>");
+                    
+                    document.write( "<td>" + nome[l] + " " + kart [l] + " " + m[l] + "</td>");
+                    document.write( "<td><img width='90' height='90' src='kart4.png'<br>></td>");
+                    
+                
+                    document.write("<tr>");
+            }
+        document.write("</table>");
+        </script>     
 </body>
 </html>
