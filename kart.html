@@ -7,61 +7,69 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script lang="Javascript">
-        var kart, m, aux, mt, nome, met;
+        var kart, m, aux, mt, nome, met, tro=1, num;
+        num = new Array(10)
         nome = new Array(10)
         kart = new Array(10);
         m = new Array(10);
         mt = new Array(3)
-        mt[0] = 0
+        mt[0] = 100000000
         pt = new Array(3)
-        pt[0] = 100000000;
-
-        for(i=0; i<10;i++)
-        {
-            nome[i] = window.prompt("Nome do "+ (i+1) +"° piloto")
-        }
-        for(i=0; i<10;i++)
-        {
-            kart[i] = window.prompt("Número do "+ (i+1) +"° piloto")
-        }
+        pt[0] = 0;
 
         for(i=0; i<kart.length; ++i)
         {
             kart[i] = new Array(3);
         }
 
-        for(i=0; i<kart.length; ++i)
+        for(i=0; i<10;i++)
+        {
+            nome[i] = window.prompt("Nome do "+ (i+1) +"° piloto")
+            num[i] = window.prompt("Número do "+ (i+1) +"° piloto")
+        }
+
+        /*//nome
+        nome = ["Daniel", "Cirilo", "Paulo", "Maria Joaquina",
+         "Valéria", "Kokimoto", "Adriano", "Jaime", "Prof. Helena", "Marcelina"]
+        //numero
+        num = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+        */
+
+        for(i=0; i<10; ++i)
         {
             for(l=0; l<3; l++)
             {
             kart[i][l] = Math.floor(Math.random() * 200 + 120);
 
-            if(mt[0] < kart[i][l])
+            if(mt[0] > kart[i][l])
             {
                 mt[0] = kart[i][l];
                 mt[1] = nome[i]
-                mt[2] = kart[i]
+                mt[2] = num[i]
             }
-            if(pt[0] > kart[i][l])
+            if(pt[0] < kart[i][l])
             {
                 pt[0] = kart[i][l];
                 pt[1] = nome[i]
-                pt[2] = kart[i]
+                pt[2] = num[i]
             }
             }
         }
 
-        for(i=0; i<kart.length; ++i)
+        for(i=0; i<10; ++i)
         {
-            m[i] = kart[i][0] + kart[i][1] + kart[i][2] / 3;
+            m[i] = Math.floor((kart[i][0] + kart[i][1] + kart[i][2]) / 3);
         }
 
-        for(i=0;i<9;i++)
+        while(tro == 1)
         {
-            for(l=9;l>0;l--)
+            tro=0
+            for(i=0;i<9;i++)
             {
+                
                 if(m[i] > m[i +1])
                 {
+                    tro=1
                     aux = m[i]
                     m[i]= m[i+1]
                     m[i+1] = aux
@@ -70,10 +78,11 @@
                     nome[i]= nome[i+1]
                     nome[i+1] = aux
 
-                    aux = kart[i]
-                    kart[i]= kart[i+1]
-                    kart[i+1] = aux
+                    aux = num[i]
+                    num[i]= num[i+1]
+                    num[i+1] = aux
                 }
+                
             }
         }
 
@@ -84,19 +93,49 @@
 </head>
 <body>
     <script lang="Javascript">
+        document.write("<center>");
     document.write("<table>");
-        for(l=10; l > 0; --l)
+        for(l=9; l >= 0; --l)
             {
                 
                 document.write("<tr>");
-                    
-                    document.write( "<td>" + nome[l] + " " + kart [l] + " " + m[l] + "</td>");
-                    document.write( "<td><img width='90' height='90' src='kart4.png'<br>></td>");
-                    
+                    if(l%2==1)
+                    {
+                    document.write( "<td><<i>" + nome[l] + "</i> <b>" + num[l] + "</b> velocidade:" + m[l] + "s></td>");
+                    document.write( "<td><img width='90' height='90' src='kart"+ (l+1) +".png'</td>");
+                    }
+                    else
+                    {
+                    document.write( "<td align='center'><img width='90' height='90' src='kart"+ (l+1) +".png'</td>"); 
+                    document.write( "<td><<i>" + nome[l] + "</i> <b>" + num [l] + "</b> velocidade:" + m[l] + "s></td>");
+                    }
                 
-                    document.write("<tr>");
+                    document.write("</tr>");
             }
+            //melhor
+            document.write("<tr><td>");
+
+                document.write("<h3>Volta mais rápida:</h3>");
+
+            document.write("</td><td>");   
+
+                document.write("<h3>Nome:"+ mt[1]+", Número: "+mt[2]+", Volta: "+mt[0]+"s</h3>");
+
+            document.write("</td></tr>");
+            //pior
+            document.write("<tr><td>");
+
+            document.write("<h3>Volta mais lenta:</h3>");
+
+            document.write("</td><td>");   
+
+            document.write("<h3>Nome:"+ pt[1]+", Número: "+pt[2]+", Velocidade: "+pt[0]+"s</h3>");
+
+            document.write("</td></tr>");
         document.write("</table>");
+
+        
+        document.write("</center>");
         </script>     
 </body>
 </html>
